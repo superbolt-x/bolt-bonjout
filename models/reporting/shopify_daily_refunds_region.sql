@@ -15,7 +15,7 @@ WITH
             SUM(quantity) as items_count,
             COALESCE(SUM(CASE WHEN gift_card is true THEN quantity END),0) as giftcard_count,
             COALESCE(SUM(CASE WHEN gift_card is true THEN price * quantity END),0) as giftcard_deduction
-        FROM {{ ref('shopify_line_items') }}
+        FROM {{ ref('shopify_line_items_region') }}
         GROUP BY 1)
     ),
 
@@ -29,7 +29,7 @@ WITH
         end) as subtotal_refund,
         sum(amount_shipping_refund) as shipping_refund,
         sum(total_tax_refund) + sum(tax_amount_discrepancy_refund) + sum(tax_amount_shipping_refund) as tax_refund
-    FROM {{ ref('shopify_refunds') }}
+    FROM {{ ref('shopify_refunds_region') }}
     LEFT JOIN giftcard_deduction USING(order_id)
     GROUP BY date, refund_id, order_id
     ),
