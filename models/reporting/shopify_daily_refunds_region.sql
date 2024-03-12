@@ -36,7 +36,7 @@ WITH
 
     order_customer AS 
     (SELECT order_id, customer_id, cancelled_at, region
-    FROM {{ ref('shopify_orders') }}
+    FROM {{ ref('shopify_orders_region') }}
     )
 
 SELECT *,
