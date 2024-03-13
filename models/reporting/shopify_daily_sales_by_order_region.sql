@@ -1,5 +1,5 @@
 {{ config (
-    alias = target.database + '_shopify_daily_sales_by_order',
+    alias = target.database + '_shopify_daily_sales_by_order_region',
     materialized='incremental',
     unique_key='unique_key'
 )}}
