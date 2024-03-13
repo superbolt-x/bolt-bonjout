@@ -1,5 +1,5 @@
 {{ config (
-    alias = target.database + '_shopify_daily_refunds'
+    alias = target.database + '_shopify_daily_refunds_region'
 )}}
 
 WITH
