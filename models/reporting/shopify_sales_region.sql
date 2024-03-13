@@ -1,5 +1,5 @@
 {{ config (
-    alias = target.database + '_shopify_sales'
+    alias = target.database + '_shopify_sales_region'
 )}}
 
 {%- set date_granularity_list = ['day','week','month','quarter','year'] -%}
