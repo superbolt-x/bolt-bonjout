@@ -27,7 +27,7 @@ group by 1,2),
 
 shopify as (
 {%- for date_granularity in date_granularity_list %}
-select DATE_TRUNC('{{date_granularity}}' ,date::date), '{{date_granularity}}' as date_granularity, 'Shopify' as channel, 
+select DATE_TRUNC('{{date_granularity}}' ,date::date) as date, '{{date_granularity}}' as date_granularity, 'Shopify' as channel, 
 0 as spend,
 0 as paid_purchase,
 0 as paid_revenue,
