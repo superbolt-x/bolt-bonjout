@@ -1,13 +1,14 @@
 version: 2
 
- name: reporting
- schema: reporting
- tables:
-   - name: facebook_ad_performance
-     identifier: bonjout_facebook_ad_performance
+sources:
+ - name: reporting
+   schema: reporting
+   tables:
+     - name: facebook_ad_performance
+       identifier: bonjout_facebook_ad_performance
  
-   - name: googleads_campaign_performance
-     identifier: bonjout_googleads_campaign_performance
+     - name: googleads_campaign_performance
+       identifier: bonjout_googleads_campaign_performance
  
-   - name: shopify_sales_region
-     identifier: bonjout_shopify_sales_region
+     - name: shopify_sales_region
+       identifier: bonjout_shopify_sales_region
