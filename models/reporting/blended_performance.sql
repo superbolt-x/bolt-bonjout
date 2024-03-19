@@ -2,7 +2,8 @@
     alias = target.database + '_blended_performance'
 )}}
 
-
+{% set date_granularity_list = ['day', 'week', 'month', 'quarter', 'year'] %}
+    
 With meta as (
 select date, date_granularity, 'Meta' as channel, SUM(coalesce(spend,0)) as spend, SUM(coalesce(purchases,0)) as paid_purchase,
 SUM(coalesce(revenue,0)) as paid_revenue,
@@ -25,7 +26,8 @@ from {{ source('reporting', 'googleads_campaign_performance') }}
 group by 1,2),
 
 shopify as (
-select date, 'day' as date_granularity, 'Shopify' as channel, 
+{%- for date_granularity in date_granularity_list %}
+select DATE_TRUNC({{date_granularity}} ,date::date), '{{date_granularity}}' as date_granularity, 'Shopify' as channel, 
 0 as spend,
 0 as paid_purchase,
 0 as paid_revenue,
