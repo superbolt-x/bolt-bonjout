@@ -5,7 +5,7 @@
 {% set date_granularity_list = ['day', 'week', 'month', 'quarter', 'year'] %}
     
 With meta as (
-select date, date_granularity, campaign_name,'' as region, 'Meta' as channel, SUM(coalesce(spend,0)) as spend, SUM(coalesce(purchases,0)) as paid_purchase,
+select date, date_granularity, campaign_type_default,'' as region, 'Meta' as channel, SUM(coalesce(spend,0)) as spend, SUM(coalesce(purchases,0)) as paid_purchase,
 SUM(coalesce(revenue,0)) as paid_revenue,
 SUM(coalesce(link_clicks,0)) as clicks,
 SUM(coalesce(impressions,0)) as impressions,
@@ -15,7 +15,7 @@ SUM(coalesce(impressions,0)) as impressions,
 from {{ source('reporting', 'facebook_ad_performance') }}
 group by 1,2,3),
 
-google as (select date, date_granularity,campaign_name, 
+google as (select date, date_granularity,campaign_type_default, 
 '' as region, 
 'Google' as channel, 
 SUM(coalesce(spend,0)) as spend, 
@@ -33,7 +33,7 @@ shopify as (
 {%- for date_granularity in date_granularity_list %}
 select DATE_TRUNC('{{date_granularity}}' ,date::date) as date, 
 '{{date_granularity}}' as date_granularity, 
-'' as campaign_name,
+'' as campaign_type_default,
 region,
 'Shopify' as channel, 
 0 as spend,
