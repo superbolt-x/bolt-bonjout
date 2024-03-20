@@ -15,7 +15,7 @@ SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_first_orders,
 0 as shopify_revenue
 from {{ source('reporting', 'facebook_ad_performance') }}
-group by 1,2,3),
+group by 1,2,3,4),
 
 google as (select date, date_granularity,campaign_type_default, 
 case when campaign_name ~* 'Canada' then 'CA' else 'US' end as region, 
@@ -29,7 +29,7 @@ SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_first_orders,
 0 as shopify_revenue
 from {{ source('reporting', 'googleads_campaign_performance') }}
-group by 1,2,3),
+group by 1,2,3,4),
 
 shopify as (
 {%- for date_granularity in date_granularity_list %}
