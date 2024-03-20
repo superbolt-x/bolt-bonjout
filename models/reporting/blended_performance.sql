@@ -45,7 +45,7 @@ sum(coalesce(orders,0)) as shopify_purchase,
 sum(coalesce(first_orders,0)) as shopify_first_orders,
 sum(coalesce(total_sales,0)) as shopify_revenue
 from {{ source('reporting', 'shopify_sales_region') }}
-group by 1,2,3
+group by 1,2,4
     {% if not loop.last %}UNION ALL
     {% endif %}
 {% endfor %}
