@@ -6,6 +6,9 @@ sources:
    tables:
      - name: facebook_ad_performance
        identifier: bonjout_facebook_ad_performance
+
+     - name: pinterest_ad_group_performance
+       identifier: bonjout_pinterest_ad_group_performance
  
      - name: googleads_campaign_performance
        identifier: bonjout_googleads_campaign_performance
