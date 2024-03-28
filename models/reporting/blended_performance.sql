@@ -17,6 +17,19 @@ SUM(coalesce(impressions,0)) as impressions,
 from {{ source('reporting', 'facebook_ad_performance') }}
 group by 1,2,3,4),
 
+pinterest as (
+select date, date_granularity, campaign_type_default,
+case when campaign_name ~* 'Canada' then 'CA' else 'US' end as region, 
+'Pinterest' as channel, SUM(coalesce(spend,0)) as spend, SUM(coalesce(purchases,0)) as paid_purchase,
+SUM(coalesce(revenue,0)) as paid_revenue,
+SUM(coalesce(link_clicks,0)) as clicks,
+SUM(coalesce(impressions,0)) as impressions,
+0 as shopify_purchase,
+0 as shopify_first_orders,
+0 as shopify_revenue
+from {{ source('reporting', 'pinterest_ad_group_performance') }}
+group by 1,2,3,4),
+    
 google as (select date, date_granularity,campaign_type_default, 
 case when campaign_name ~* 'Canada' then 'CA' else 'US' end as region, 
 'Google' as channel, 
@@ -55,6 +68,9 @@ group by 1,2,4
 
 select *
 from meta 
+union 
+select *
+from pinterest
 union 
 select *
 from google
