@@ -44,10 +44,7 @@ SUM(coalesce(impressions,0)) as impressions,
 from {{ source('reporting', 'googleads_campaign_performance') }}
 group by 1,2,3,4,5),
 
-shopify as (
-{%- for date_granularity in date_granularity_list %}
-select DATE_TRUNC('{{date_granularity}}' ,date::date) as date, 
-'{{date_granularity}}' as date_granularity, 
+shopify as (select date, date_granularity,
 NULL as campaign_type_default,
 region,
 'Shopify' as channel, 
