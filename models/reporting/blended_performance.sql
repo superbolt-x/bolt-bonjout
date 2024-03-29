@@ -48,7 +48,7 @@ shopify as (
 {%- for date_granularity in date_granularity_list %}
 select DATE_TRUNC('{{date_granularity}}' ,date::date) as date, 
 '{{date_granularity}}' as date_granularity, 
-'' as campaign_type_default,
+NULL as campaign_type_default,
 region,
 'Shopify' as channel, 
 0 as spend,
