@@ -15,7 +15,7 @@ SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_first_orders,
 0 as shopify_revenue
 from {{ source('reporting', 'facebook_ad_performance') }}
-group by 1,2,3,4),
+group by 1,2,3,4,5),
 
 pinterest as (
 select date, date_granularity, campaign_type_default,
@@ -28,7 +28,7 @@ SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_first_orders,
 0 as shopify_revenue
 from {{ source('reporting', 'pinterest_ad_group_performance') }}
-group by 1,2,3,4),
+group by 1,2,3,4,5),
     
 google as (select date, date_granularity,campaign_type_default, 
 case when campaign_name ~* 'Canada' then 'CA' else 'US' end as region, 
@@ -42,7 +42,7 @@ SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_first_orders,
 0 as shopify_revenue
 from {{ source('reporting', 'googleads_campaign_performance') }}
-group by 1,2,3,4),
+group by 1,2,3,4,5),
 
 shopify as (
 {%- for date_granularity in date_granularity_list %}
@@ -60,7 +60,7 @@ sum(coalesce(orders,0)) as shopify_purchase,
 sum(coalesce(first_orders,0)) as shopify_first_orders,
 sum(coalesce(total_sales,0)) as shopify_revenue
 from {{ source('reporting', 'shopify_sales_region') }}
-group by 1,2,4
+group by 1,2,3,4,5
     {% if not loop.last %}UNION ALL
     {% endif %}
 {% endfor %}
