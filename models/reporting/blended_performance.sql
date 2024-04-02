@@ -13,7 +13,8 @@ SUM(coalesce(link_clicks,0)) as clicks,
 SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_purchase,
 0 as shopify_first_orders,
-0 as shopify_revenue
+0 as shopify_revenue,
+0 as shopify_firstorder_revenue
 from {{ source('reporting', 'facebook_ad_performance') }}
 group by 1,2,3,4,5),
 
@@ -26,7 +27,8 @@ SUM(coalesce(clicks,0)) as clicks,
 SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_purchase,
 0 as shopify_first_orders,
-0 as shopify_revenue
+0 as shopify_revenue,
+0 as shopify_firstorder_revenue
 from {{ source('reporting', 'pinterest_ad_group_performance') }}
 group by 1,2,3,4,5),
     
@@ -40,7 +42,8 @@ SUM(coalesce(clicks,0)) as clicks,
 SUM(coalesce(impressions,0)) as impressions,
 0 as shopify_purchase,
 0 as shopify_first_orders,
-0 as shopify_revenue
+0 as shopify_revenue,
+0 as shopify_firstorder_revenue
 from {{ source('reporting', 'googleads_campaign_performance') }}
 group by 1,2,3,4,5),
 
@@ -55,7 +58,8 @@ region,
 0 as impressions,
 sum(coalesce(orders,0)) as shopify_purchase,
 sum(coalesce(first_orders,0)) as shopify_first_orders,
-sum(coalesce(total_sales,0)) as shopify_revenue
+sum(coalesce(total_sales,0)) as shopify_revenue,
+sum(coalesce(first_order_total_sales,0)) as shopify_firstorder_revenue
 from {{ source('reporting', 'shopify_sales_region') }}
 group by 1,2,3,4,5
 )
